@@ -49,6 +49,9 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-;; typescript
 (package! typescript-mode)
 (package! lsp-ui)
+(package! lsp-ivy)
+(package! forge)
+(package! evil-nerd-commenter)
+(package! rainbow-delimiters)

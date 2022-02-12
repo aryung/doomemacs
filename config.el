@@ -53,13 +53,14 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(use-package! typescript-mode
-  :mode "\\.ts\\'"
-  :init (setq typescript-indent-level 2))
+(defun lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
 
 (use-package! lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . efs/lsp-mode-setup)
+  ;; :hook (lsp-mode . lsp-mode-setup)
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
@@ -92,20 +93,20 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
-(use-package! company-box
-  :hook (company-mode . company-box-mode))
+;; (use-package! company-box
+;;   :hook (company-mode . company-box-mode))
 
-(use-package! projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/Projects/Code")
-    (setq projectile-project-search-path '("~/Projects/Code")))
-  (setq projectile-switch-project-action #'projectile-dired))
+;; (use-package! projectile
+;;   :diminish projectile-mode
+;;   :config (projectile-mode)
+;;   :custom ((projectile-completion-system 'ivy))
+;;   :bind-keymap
+;;   ("C-c p" . projectile-command-map)
+;;   :init
+;;   ;; NOTE: Set this to the folder where you keep your Git repos!
+;;   (when (file-directory-p "~/Projects/Code")
+;;     (setq projectile-project-search-path '("~/Projects/Code")))
+;;   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package! counsel-projectile
   :config (counsel-projectile-mode))
@@ -114,8 +115,8 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package! evil-magit
-  :after magit)
+;; (use-package! evil-magit
+;;   :after magit)
 
 ;; NOTE: Make sure to configure a GitHub token before using this package!
 ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
